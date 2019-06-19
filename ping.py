@@ -6,8 +6,6 @@ default_host = "10.8.45.140"
 if host == "":
     host = default_host
 
-text = "\n\n\t\t\t" + host + " IS ONLINE\n\n"
-
 def ping(ip):
     response = os.system("ping -c 1 " + ip + " > /dev/null 2>&1")
     if response == 0:
@@ -22,6 +20,11 @@ online = False
 while True:
     if ping(host) == True:
         os.system("clear")
+       
+        text = "\n\n\t\t\t" + host + " IS ONLINE"
+        if host == default_host:
+            text += "\n\t\t    You have FREE INTERNET, Enjoy :)"
+       
         print(text)
 
         if online == False:
