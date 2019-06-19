@@ -1,4 +1,4 @@
 
 
-			localhost IS ONLINE
+			10.8.16.254 IS ONLINE
 

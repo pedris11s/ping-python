@@ -1,15 +1,15 @@
 import os
 
 host = input("Write ip: ")
-#hostname = "10.8.45.140"
-hostname = "localhost"
+#default_host = "10.8.45.140"
+default_host = "10.8.16.254"
 
 if host == "":
-    host = hostname
+    host = default_host
 
 text = "\n\n\t\t\t" + host + " IS ONLINE\n\n"
 
-# response = os.system("ping -c 1 " + hostname) -> este seria para Windows
+# response = os.system("ping -c 1 " + default_host) -> para Windows
 
 def ping(ip):
     response = os.system("ping -c 1 " + ip + " > /dev/null 2>&1")
@@ -22,24 +22,26 @@ def writeFile():
         file.writelines(text)
         file.close()
 
-beep = lambda x: os.system("play -n synth 0.1 sine 880 vol 0.5 > /dev/null 2>&1;" * x)
+beep = lambda x: os.system("play -n synth 0.05 sine 880 vol 1 > /dev/null 2>&1;" * x)
 
 cont = 1
 os.system("clear")
+online = False
 while True:
-    print("Trying to reach the host...")
     if ping(host) == True:
         writeFile()
-        #os.system("play sonido.mp3")
-        #os.system("play -n synth 0.1 sine 880 vol 0.5")
-        beep(3)
+
         os.system("clear")
         print(text)
-        #os.system("clear")
-        #os.system("gedit alerta.txt")
-        break
+
+        if online == False:
+            beep(3)
+            online = True
+        #break
     else:
         os.system("clear")
         print("OFFLINE: ", host)
         print("Attempts: ", cont)
         cont += 1
+        online = False
+        #os.system("pkill gedit")
